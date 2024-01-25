@@ -10,7 +10,7 @@ import thaumcraft.api.aspects.Aspect;
 
 /**
  * @author Azanor
- * 
+ *
  *         The tile entity used by nodes in the vis energy network. A node is either a source (like an aura node),
  *         a transport relay or vis receiver (like the infernal furnace).
  *
@@ -39,7 +39,7 @@ public abstract class TileVisNode extends TileThaumcraft {
 
     /**
      * This method should never be called directly. Use VisNetHandler.drainVis() instead
-     * 
+     *
      * @param aspect what aspect to drain
      * @param vis    how much to drain
      * @return how much was actually drained
@@ -120,11 +120,6 @@ public abstract class TileVisNode extends TileThaumcraft {
      */
     public ArrayList<WeakReference<TileVisNode>> getChildren() {
         return children;
-    }
-
-    @Override
-    public boolean canUpdate() {
-        return true;
     }
 
     protected int nodeCounter = 0;

@@ -24,10 +24,6 @@ public class TileEntityOfferingAltarRenderer extends TileEntitySpecialRenderer {
     public TileEntityOfferingAltarRenderer() {
         renderItem = new RenderItem() {
 
-            @Override
-            public boolean shouldBob() {
-                return true;
-            }
         };
         renderItem.setRenderManager(RenderManager.instance);
     }

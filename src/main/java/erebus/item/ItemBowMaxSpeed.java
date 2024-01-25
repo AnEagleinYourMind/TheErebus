@@ -146,16 +146,6 @@ public class ItemBowMaxSpeed extends ItemBow {
     }
 
     @Override
-    public int getMaxItemUseDuration(ItemStack is) {
-        return 72000;
-    }
-
-    @Override
-    public EnumAction getItemUseAction(ItemStack is) {
-        return EnumAction.bow;
-    }
-
-    @Override
     public int getItemEnchantability() {
         return weaponEnchantibility;
     }

@@ -6,7 +6,6 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import cpw.mods.fml.common.registry.EntityRegistry;
-import erebus.api.ErebusAPI;
 import erebus.core.handler.configs.ConfigHandler;
 import erebus.entity.EntityAnimatedBambooCrate;
 import erebus.entity.EntityAnimatedBlock;
@@ -86,7 +85,6 @@ import erebus.entity.EntityZombieAnt;
 import erebus.entity.EntityZombieAntSoldier;
 import erebus.entity.effect.EntityErebusLightningBolt;
 import erebus.item.ItemSpawnEggs;
-import erebus.preserved.PreservableEntityRegistry.EntityDimensions;
 
 public class ModEntities {
 

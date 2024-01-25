@@ -68,11 +68,6 @@ public class BlockBambooPole extends BlockContainer {
     }
 
     @Override
-    public int quantityDropped(Random rand) {
-        return 1;
-    }
-
-    @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
         return side == 0 ? poleIconBottom : side == 1 ? poleIconTop : blockIcon;

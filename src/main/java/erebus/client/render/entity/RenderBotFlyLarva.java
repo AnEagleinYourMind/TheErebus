@@ -27,11 +27,6 @@ public class RenderBotFlyLarva extends RenderLiving {
     }
 
     @Override
-    protected int shouldRenderPass(EntityLivingBase entityLivingBase, int par2, float par3) {
-        return -1;
-    }
-
-    @Override
     protected ResourceLocation getEntityTexture(Entity entity) {
         return Texture;
     }

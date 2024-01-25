@@ -62,11 +62,6 @@ public class EntityPoisonJet extends EntityThrowable {
         return 0.02F;
     }
 
-    @Override
-    public boolean canBeCollidedWith() {
-        return false;
-    }
-
     public boolean attackEntityFrom(DamageSource source, int amount) {
         return false;
     }

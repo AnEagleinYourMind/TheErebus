@@ -111,11 +111,6 @@ public class BlockBambooLadder extends BlockContainer {
     }
 
     @Override
-    public int quantityDropped(Random rand) {
-        return 1;
-    }
-
-    @Override
     public boolean isLadder(IBlockAccess world, int x, int y, int z, EntityLivingBase entity) {
         return true;
     }

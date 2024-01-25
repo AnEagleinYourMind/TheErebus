@@ -66,11 +66,6 @@ public class EntityWebSling extends EntityThrowable {
         if (type != 2) worldObj.playSoundAtEntity(this, getWebSlingSplatSound(), 1.0F, 1.0F);
     }
 
-    @Override
-    public boolean canBeCollidedWith() {
-        return false;
-    }
-
     public boolean attackEntityFrom(DamageSource source, int par2) {
         return false;
     }

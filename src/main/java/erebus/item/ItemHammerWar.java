@@ -53,12 +53,6 @@ public class ItemHammerWar extends ItemSword {
     }
 
     @Override
-    public boolean hitEntity(ItemStack is, EntityLivingBase entity, EntityLivingBase player) {
-        is.damageItem(1, player);
-        return true;
-    }
-
-    @Override
     public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
         if (!stack.hasTagCompound()) stack.stackTagCompound = new NBTTagCompound();
         if (!stack.getTagCompound()

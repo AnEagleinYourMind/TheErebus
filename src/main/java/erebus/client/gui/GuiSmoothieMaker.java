@@ -57,6 +57,4 @@ public class GuiSmoothieMaker extends GuiErebus {
         }
     }
 
-    @Override
-    protected void drawGuiContainerForegroundLayer(int par1, int par2) {}
 }

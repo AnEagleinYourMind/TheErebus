@@ -99,11 +99,6 @@ public class EntityBotFly extends EntityMob {
     }
 
     @Override
-    protected boolean isAIEnabled() {
-        return false;
-    }
-
-    @Override
     public void onUpdate() {
         super.onUpdate();
 

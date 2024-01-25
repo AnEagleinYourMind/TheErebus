@@ -84,11 +84,6 @@ public class EntityMidgeSwarm extends EntityMob {
     }
 
     @Override
-    protected boolean isAIEnabled() {
-        return false;
-    }
-
-    @Override
     public void onUpdate() {
         super.onUpdate();
         wingFloat = mathWings.swing(1.5F, 0.2F);

@@ -87,11 +87,6 @@ public class EntitySporeBall extends EntityThrowable {
         } else setDead();
     }
 
-    @Override
-    public boolean canBeCollidedWith() {
-        return false;
-    }
-
     public boolean attackEntityFrom(DamageSource source, int amount) {
         return false;
     }

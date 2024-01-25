@@ -49,10 +49,4 @@ public class ItemHelmRhino extends ItemArmor {
         return model;
     }
 
-    @Override
-    public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {}
-
-    @Override
-    public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {}
-
 }

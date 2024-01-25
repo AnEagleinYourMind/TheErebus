@@ -62,11 +62,6 @@ public class BlockGlowshroom extends Block {
     }
 
     @Override
-    public int quantityDropped(Random rand) {
-        return 1;
-    }
-
-    @Override
     public Item getItemDropped(int meta, Random rand, int fortune) {
         return ModItems.materials;
     }

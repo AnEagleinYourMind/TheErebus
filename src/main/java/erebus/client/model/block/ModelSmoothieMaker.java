@@ -141,7 +141,4 @@ public class ModelSmoothieMaker extends ModelBase {
         BeetleJuiceLid.render(0.0625F);
     }
 
-    @Override
-    public void setRotationAngles(float limbSwing, float limbSwingAngle, float entityTickTime, float rotationYaw,
-        float rotationPitch, float unitPixel, Entity entity) {}
 }

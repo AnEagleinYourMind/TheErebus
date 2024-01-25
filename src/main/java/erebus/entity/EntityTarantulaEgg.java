@@ -55,11 +55,6 @@ public class EntityTarantulaEgg extends EntityThrowable {
         worldObj.playSoundAtEntity(this, getSplatSound(), 1.0F, 1.0F);
     }
 
-    @Override
-    public boolean canBeCollidedWith() {
-        return false;
-    }
-
     public boolean attackEntityFrom(DamageSource source, int amount) {
         return false;
     }

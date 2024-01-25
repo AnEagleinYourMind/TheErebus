@@ -64,12 +64,6 @@ public class EntityBloodSnail extends EntityMob {
     }
 
     @Override
-    protected Entity findPlayerToAttack() {
-        EntityPlayer var1 = worldObj.getClosestVulnerablePlayerToEntity(this, 16.0D);
-        return var1 != null && canEntityBeSeen(var1) ? var1 : null;
-    }
-
-    @Override
     public boolean attackEntityAsMob(Entity entity) {
         if (super.attackEntityAsMob(entity)) {
             if (entity instanceof EntityLiving) {

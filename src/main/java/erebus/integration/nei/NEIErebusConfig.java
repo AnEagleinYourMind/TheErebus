@@ -1,6 +1,5 @@
 package erebus.integration.nei;
 
-import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 

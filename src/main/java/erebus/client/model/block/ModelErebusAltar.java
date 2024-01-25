@@ -43,9 +43,4 @@ public class ModelErebusAltar extends ModelBase {
         model.rotateAngleZ = z;
     }
 
-    @Override
-    public void setRotationAngles(float limbSwing, float prevLimbSwing, float entityTickTime, float rotationYaw,
-        float rotationPitch, float unitPixel, Entity entity) {
-
-    }
 }

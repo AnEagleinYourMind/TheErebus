@@ -78,11 +78,6 @@ public class EntityDragonfly extends EntityMob {
     }
 
     @Override
-    protected boolean isAIEnabled() {
-        return false;
-    }
-
-    @Override
     protected boolean canTriggerWalking() {
         return false;
     }

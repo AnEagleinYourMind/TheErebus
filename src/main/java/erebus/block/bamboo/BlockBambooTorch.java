@@ -98,11 +98,6 @@ public class BlockBambooTorch extends Block {
     }
 
     @Override
-    public int quantityDropped(Random rand) {
-        return 1;
-    }
-
-    @Override
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
         int meta = world.getBlockMetadata(x, y, z);

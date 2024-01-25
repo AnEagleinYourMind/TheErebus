@@ -19,11 +19,6 @@ public class TileEntitySoldierAntTrap extends TileEntity {
     public boolean active;
 
     @Override
-    public boolean canUpdate() {
-        return true;
-    }
-
-    @Override
     public void updateEntity() {
         if (!worldObj.isRemote) {
             findEnemyToAttack();
