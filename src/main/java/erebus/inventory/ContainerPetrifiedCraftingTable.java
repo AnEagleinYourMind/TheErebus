@@ -7,12 +7,12 @@ import net.minecraft.world.World;
 
 public class ContainerPetrifiedCraftingTable extends ContainerWorkbench {
 
-	public ContainerPetrifiedCraftingTable(InventoryPlayer player, World world, int x, int y, int z) {
-		super(player, world, x, y, z);
-	}
+    public ContainerPetrifiedCraftingTable(InventoryPlayer player, World world, int x, int y, int z) {
+        super(player, world, x, y, z);
+    }
 
-	@Override
-	public boolean canInteractWith(EntityPlayer player) {
-		return true;
-	}
+    @Override
+    public boolean canInteractWith(EntityPlayer player) {
+        return true;
+    }
 }

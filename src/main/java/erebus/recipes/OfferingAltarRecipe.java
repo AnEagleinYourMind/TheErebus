@@ -4,93 +4,80 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import erebus.core.helper.Utils;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
+import erebus.core.helper.Utils;
+
 public class OfferingAltarRecipe {
-	private static final List<OfferingAltarRecipe> list = new ArrayList<OfferingAltarRecipe>();
 
-	public static List<OfferingAltarRecipe> getRecipeList() {
-		return Collections.unmodifiableList(list);
-	}
+    private static final List<OfferingAltarRecipe> list = new ArrayList<OfferingAltarRecipe>();
 
-	public static void addRecipe(ItemStack output, Object... inputs) {
-		list.add(new OfferingAltarRecipe(output, inputs));
-	}
+    public static List<OfferingAltarRecipe> getRecipeList() {
+        return Collections.unmodifiableList(list);
+    }
 
-	public static ItemStack getOutput(ItemStack input1, ItemStack input2, ItemStack input3) {
-		for (OfferingAltarRecipe recipe : list)
-			if (recipe.matches(input1, input2, input3))
-				return recipe.getOutput();
-		return null;
-	}
+    public static void addRecipe(ItemStack output, Object... inputs) {
+        list.add(new OfferingAltarRecipe(output, inputs));
+    }
 
-	private final ItemStack output;
-	private final Object[] inputs;
+    public static ItemStack getOutput(ItemStack input1, ItemStack input2, ItemStack input3) {
+        for (OfferingAltarRecipe recipe : list) if (recipe.matches(input1, input2, input3)) return recipe.getOutput();
+        return null;
+    }
 
-	private OfferingAltarRecipe(ItemStack output, Object... inputs) {
-		this.output = output;
-		this.inputs = inputs;
-		if (inputs.length > 3)
-			throw new IllegalArgumentException("Must not have more than 3 inputs.");
+    private final ItemStack output;
+    private final Object[] inputs;
 
-		for (int i = 0; i < inputs.length; i++) {
-			if (inputs[i] == null)
-				throw new IllegalArgumentException("Input must not be null.");
-			boolean isStack = inputs[i] instanceof ItemStack;
-			boolean isString = inputs[i] instanceof String;
-			if (isString)
-				inputs[i] = OreDictionary.getOres((String) inputs[i]);
-			else if (!isStack)
-				throw new IllegalArgumentException("Input must not be an ItemStack or a String.");
-		}
-	}
+    private OfferingAltarRecipe(ItemStack output, Object... inputs) {
+        this.output = output;
+        this.inputs = inputs;
+        if (inputs.length > 3) throw new IllegalArgumentException("Must not have more than 3 inputs.");
 
-	@SuppressWarnings("unchecked")
-	public boolean matches(ItemStack input1, ItemStack input2, ItemStack input3) {
-		ItemStack[] stacks = { input1, input2, input3 };
-		label: for (Object input : inputs) {
-			for (int i = 0; i < stacks.length; i++)
-				if (stacks[i] != null)
-					if (input instanceof ItemStack) {
-						if (Utils.areStacksTheSame((ItemStack) input, stacks[i], false)) {
-							stacks[i] = null;
-							continue label;
-						}
-					} else
-						for (ItemStack s : (ArrayList<ItemStack>) input)
-							if (Utils.areStacksTheSame(s, stacks[i], false)) {
-								stacks[i] = null;
-								continue label;
-							}
+        for (int i = 0; i < inputs.length; i++) {
+            if (inputs[i] == null) throw new IllegalArgumentException("Input must not be null.");
+            boolean isStack = inputs[i] instanceof ItemStack;
+            boolean isString = inputs[i] instanceof String;
+            if (isString) inputs[i] = OreDictionary.getOres((String) inputs[i]);
+            else if (!isStack) throw new IllegalArgumentException("Input must not be an ItemStack or a String.");
+        }
+    }
 
-			return false;
-		}
+    @SuppressWarnings("unchecked")
+    public boolean matches(ItemStack input1, ItemStack input2, ItemStack input3) {
+        ItemStack[] stacks = { input1, input2, input3 };
+        label: for (Object input : inputs) {
+            for (int i = 0; i < stacks.length; i++) if (stacks[i] != null) if (input instanceof ItemStack) {
+                if (Utils.areStacksTheSame((ItemStack) input, stacks[i], false)) {
+                    stacks[i] = null;
+                    continue label;
+                }
+            } else for (ItemStack s : (ArrayList<ItemStack>) input) if (Utils.areStacksTheSame(s, stacks[i], false)) {
+                stacks[i] = null;
+                continue label;
+            }
 
-		return true;
-	}
+            return false;
+        }
 
-	@SuppressWarnings("unchecked")
-	public boolean isPartOfInput(ItemStack stack) {
-		if (stack == null)
-			return false;
-		for (Object input : inputs)
-			if (input instanceof ItemStack) {
-				if (Utils.areStacksTheSame((ItemStack) input, stack, false))
-					return true;
-			} else
-				for (ItemStack s : (ArrayList<ItemStack>) input)
-					if (Utils.areStacksTheSame(s, stack, false))
-						return true;
-		return false;
-	}
+        return true;
+    }
 
-	public Object[] getInputs() {
-		return inputs;
-	}
+    @SuppressWarnings("unchecked")
+    public boolean isPartOfInput(ItemStack stack) {
+        if (stack == null) return false;
+        for (Object input : inputs) if (input instanceof ItemStack) {
+            if (Utils.areStacksTheSame((ItemStack) input, stack, false)) return true;
+        } else
+            for (ItemStack s : (ArrayList<ItemStack>) input) if (Utils.areStacksTheSame(s, stack, false)) return true;
+        return false;
+    }
 
-	public ItemStack getOutput() {
-		return ItemStack.copyItemStack(output);
-	}
+    public Object[] getInputs() {
+        return inputs;
+    }
+
+    public ItemStack getOutput() {
+        return ItemStack.copyItemStack(output);
+    }
 }

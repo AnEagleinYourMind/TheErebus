@@ -13,19 +13,20 @@ import erebus.client.model.entity.ModelBeetle;
 
 @SideOnly(Side.CLIENT)
 public class RenderBedBug extends RenderLiving {
-	private static final ResourceLocation TEXTURE = new ResourceLocation("erebus:textures/entity/bedBug.png");
 
-	public RenderBedBug() {
-		super(new ModelBeetle(), 0.3F);
-	}
+    private static final ResourceLocation TEXTURE = new ResourceLocation("erebus:textures/entity/bedBug.png");
 
-	@Override
-	protected void preRenderCallback(EntityLivingBase entityliving, float f) {
-		GL11.glScalef(0.75F, 0.75F, 0.75F);
-	}
+    public RenderBedBug() {
+        super(new ModelBeetle(), 0.3F);
+    }
 
-	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
-		return TEXTURE;
-	}
+    @Override
+    protected void preRenderCallback(EntityLivingBase entityliving, float f) {
+        GL11.glScalef(0.75F, 0.75F, 0.75F);
+    }
+
+    @Override
+    protected ResourceLocation getEntityTexture(Entity entity) {
+        return TEXTURE;
+    }
 }

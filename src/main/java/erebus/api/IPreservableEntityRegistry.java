@@ -1,15 +1,16 @@
 package erebus.api;
 
-import erebus.preserved.PreservableEntityRegistry.EntityDimensions;
 import net.minecraft.entity.Entity;
+
+import erebus.preserved.PreservableEntityRegistry.EntityDimensions;
 
 public interface IPreservableEntityRegistry {
 
-	void registerHandler(IPreservableEntityHandler handler);
+    void registerHandler(IPreservableEntityHandler handler);
 
-	void registerEntity(Class<? extends Entity> entityCls, EntityDimensions dimensions);
+    void registerEntity(Class<? extends Entity> entityCls, EntityDimensions dimensions);
 
-	EntityDimensions getEntityDimensions(Entity entity);
+    EntityDimensions getEntityDimensions(Entity entity);
 
-	boolean canBePreserved(Entity entity);
+    boolean canBePreserved(Entity entity);
 }

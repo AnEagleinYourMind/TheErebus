@@ -11,6 +11,7 @@ import erebus.tileentity.TileEntitySoldierAntTrap;
 
 @SideOnly(Side.CLIENT)
 public class ModelSoldierAntTrap extends ModelBase {
+
     ModelRenderer rightMandA;
     ModelRenderer leftMandA;
     ModelRenderer headMain;
@@ -76,41 +77,35 @@ public class ModelSoldierAntTrap extends ModelBase {
         rightMandA.addChild(rightMandB);
     }
 
-    public void render(TileEntitySoldierAntTrap tile) { 
+    public void render(TileEntitySoldierAntTrap tile) {
         mainBlock.render(0.0625F);
         GL11.glPushMatrix();
-        if(tile.animationTicks <= 8)
-        	GL11.glTranslatef(0F, 0F, 0F - 1F/8 * tile.animationTicks);
-        if(tile.animationTicks > 8)
-        	GL11.glTranslatef(0F, 0F, 0F - 1F);
-        if(tile.animationTicks > 1) {
-        	headMain.render(0.0625F);
+        if (tile.animationTicks <= 8) GL11.glTranslatef(0F, 0F, 0F - 1F / 8 * tile.animationTicks);
+        if (tile.animationTicks > 8) GL11.glTranslatef(0F, 0F, 0F - 1F);
+        if (tile.animationTicks > 1) {
+            headMain.render(0.0625F);
 
-        	GL11.glPushMatrix();
-        	GL11.glTranslatef(-0.0625F, 0F, 0.0625F);
-        	if(tile.animationTicks > 8)
-        		GL11.glRotatef(0F - tile.animationTicks * 2.5F, 0, 1, 0);
-        	else
-        		GL11.glRotatef(-16, 0, 1, 0);
-        	rightMandA.render(0.0625F);
-        	GL11.glPopMatrix();
+            GL11.glPushMatrix();
+            GL11.glTranslatef(-0.0625F, 0F, 0.0625F);
+            if (tile.animationTicks > 8) GL11.glRotatef(0F - tile.animationTicks * 2.5F, 0, 1, 0);
+            else GL11.glRotatef(-16, 0, 1, 0);
+            rightMandA.render(0.0625F);
+            GL11.glPopMatrix();
 
-        	GL11.glPushMatrix();
-    		GL11.glTranslatef(0.0625F, 0F, 0.0625F);
-        	if(tile.animationTicks > 8)
-        		GL11.glRotatef(0F + tile.animationTicks * 2.5F, 0, 1, 0);
-        	else
-        		GL11.glRotatef(16, 0, 1, 0);
-        	leftMandA.render(0.0625F);
-        	GL11.glPopMatrix();
+            GL11.glPushMatrix();
+            GL11.glTranslatef(0.0625F, 0F, 0.0625F);
+            if (tile.animationTicks > 8) GL11.glRotatef(0F + tile.animationTicks * 2.5F, 0, 1, 0);
+            else GL11.glRotatef(16, 0, 1, 0);
+            leftMandA.render(0.0625F);
+            GL11.glPopMatrix();
         }
         GL11.glPopMatrix();
 
     }
 
-	private void setRotation(ModelRenderer model, float x, float y, float z) {
-		model.rotateAngleX = x;
-		model.rotateAngleY = y;
-		model.rotateAngleZ = z;
-	}
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
+        model.rotateAngleX = x;
+        model.rotateAngleY = y;
+        model.rotateAngleZ = z;
+    }
 }

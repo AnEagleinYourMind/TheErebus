@@ -6,5 +6,5 @@ import net.minecraft.item.ItemStack;
 
 public interface IPostProcess {
 
-	public ItemStack postProcessItem(ItemStack is, Random rand);
+    public ItemStack postProcessItem(ItemStack is, Random rand);
 }

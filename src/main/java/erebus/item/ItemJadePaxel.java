@@ -1,19 +1,20 @@
 package erebus.item;
 
+import net.minecraft.item.ItemStack;
+
 import erebus.ModMaterials;
 import erebus.core.helper.Utils;
-import net.minecraft.item.ItemStack;
 
 public class ItemJadePaxel extends ItemPaxel {
 
-	public ItemJadePaxel() {
-		super(ModMaterials.toolJADEPAXEL);
-		setTextureName("erebus:paxel_jade");
-		setUnlocalizedName("erebus.paxelJade");
-	}
+    public ItemJadePaxel() {
+        super(ModMaterials.toolJADEPAXEL);
+        setTextureName("erebus:paxel_jade");
+        setUnlocalizedName("erebus.paxelJade");
+    }
 
-	@Override
-	public boolean getIsRepairable(ItemStack stack, ItemStack material) {
-		return Utils.isItemOre(material, "gemJade");
-	}
+    @Override
+    public boolean getIsRepairable(ItemStack stack, ItemStack material) {
+        return Utils.isItemOre(material, "gemJade");
+    }
 }

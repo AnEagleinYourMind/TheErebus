@@ -5,7 +5,7 @@ import net.minecraft.item.ItemColored;
 
 public class ItemBlockColoured extends ItemColored {
 
-	public ItemBlockColoured(Block block) {
-		super(block, false);
-	}
+    public ItemBlockColoured(Block block) {
+        super(block, false);
+    }
 }

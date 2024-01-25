@@ -7,12 +7,12 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 
 public class SlotFluidContainer extends Slot {
 
-	public SlotFluidContainer(IInventory tile, int slotIndex, int x, int y) {
-		super(tile, slotIndex, x, y);
-	}
+    public SlotFluidContainer(IInventory tile, int slotIndex, int x, int y) {
+        super(tile, slotIndex, x, y);
+    }
 
-	@Override
-	public boolean isItemValid(ItemStack is) {
-		return FluidContainerRegistry.isContainer(is);
-	}
+    @Override
+    public boolean isItemValid(ItemStack is) {
+        return FluidContainerRegistry.isContainer(is);
+    }
 }

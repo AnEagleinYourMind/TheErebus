@@ -8,85 +8,78 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+
 import erebus.ModBlocks;
 
 public class EntityWebSling extends EntityThrowable {
-	public EntityWebSling(World world) {
-		super(world);
-		setSize(1F, 1F);
-	}
 
-	public EntityWebSling(World world, EntityLiving entity) {
-		super(world, entity);
-	}
+    public EntityWebSling(World world) {
+        super(world);
+        setSize(1F, 1F);
+    }
 
-	public EntityWebSling(World world, double x, double y, double z) {
-		super(world, x, y, z);
-	}
+    public EntityWebSling(World world, EntityLiving entity) {
+        super(world, entity);
+    }
 
-	public EntityWebSling(World world, EntityPlayer player) {
-		super(world, player);
-	}
+    public EntityWebSling(World world, double x, double y, double z) {
+        super(world, x, y, z);
+    }
 
-	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataWatcher.addObject(24, new Byte((byte) 0));
-	}
+    public EntityWebSling(World world, EntityPlayer player) {
+        super(world, player);
+    }
 
-	protected String getWebSlingSplatSound() {
-		return "erebus:webslingsplat";
-	}
+    @Override
+    protected void entityInit() {
+        super.entityInit();
+        dataWatcher.addObject(24, new Byte((byte) 0));
+    }
 
-	@Override
-	protected void onImpact(MovingObjectPosition mop) {
-		byte type = getType();
+    protected String getWebSlingSplatSound() {
+        return "erebus:webslingsplat";
+    }
 
-		if (!worldObj.isRemote) {
-			int x = MathHelper.floor_double(posX);
-			int y = MathHelper.floor_double(posY);
-			int z = MathHelper.floor_double(posZ);
+    @Override
+    protected void onImpact(MovingObjectPosition mop) {
+        byte type = getType();
 
-			if (mop.entityHit != null) {
-				if (Blocks.web.canPlaceBlockAt(worldObj, x, y, z))
-					if (type == 0)
-						worldObj.setBlock(x, y, z, Blocks.web);
-					else if (type == 1)
-						worldObj.setBlock(x, y, z, ModBlocks.witherWeb);
-				if (Blocks.fire.canPlaceBlockAt(worldObj, x, y, z))
-					if (type == 2)
-						mop.entityHit.setFire(10);
-			} else {
-				if (Blocks.web.canPlaceBlockAt(worldObj, x, y, z))
-					if (type == 0)
-						worldObj.setBlock(x, y, z, Blocks.web);
-					else if (type == 1)
-						worldObj.setBlock(x, y, z, ModBlocks.witherWeb);
-				if (Blocks.fire.canPlaceBlockAt(worldObj, x, y, z))
-					if (type == 2)
-						worldObj.setBlock(x, y, z, Blocks.fire);
-			}
-			if (!worldObj.isRemote)
-				setDead();
-		}
-		if (type != 2)
-			worldObj.playSoundAtEntity(this, getWebSlingSplatSound(), 1.0F, 1.0F);
-	}
+        if (!worldObj.isRemote) {
+            int x = MathHelper.floor_double(posX);
+            int y = MathHelper.floor_double(posY);
+            int z = MathHelper.floor_double(posZ);
 
-	@Override
-	public boolean canBeCollidedWith() {
-		return false;
-	}
+            if (mop.entityHit != null) {
+                if (Blocks.web.canPlaceBlockAt(worldObj, x, y, z))
+                    if (type == 0) worldObj.setBlock(x, y, z, Blocks.web);
+                    else if (type == 1) worldObj.setBlock(x, y, z, ModBlocks.witherWeb);
+                if (Blocks.fire.canPlaceBlockAt(worldObj, x, y, z)) if (type == 2) mop.entityHit.setFire(10);
+            } else {
+                if (Blocks.web.canPlaceBlockAt(worldObj, x, y, z))
+                    if (type == 0) worldObj.setBlock(x, y, z, Blocks.web);
+                    else if (type == 1) worldObj.setBlock(x, y, z, ModBlocks.witherWeb);
+                if (Blocks.fire.canPlaceBlockAt(worldObj, x, y, z))
+                    if (type == 2) worldObj.setBlock(x, y, z, Blocks.fire);
+            }
+            if (!worldObj.isRemote) setDead();
+        }
+        if (type != 2) worldObj.playSoundAtEntity(this, getWebSlingSplatSound(), 1.0F, 1.0F);
+    }
 
-	public boolean attackEntityFrom(DamageSource source, int par2) {
-		return false;
-	}
+    @Override
+    public boolean canBeCollidedWith() {
+        return false;
+    }
 
-	public void setType(byte webType) {
-		dataWatcher.updateObject(24, webType);
-	}
+    public boolean attackEntityFrom(DamageSource source, int par2) {
+        return false;
+    }
 
-	public byte getType() {
-		return dataWatcher.getWatchableObjectByte(24);
-	}
+    public void setType(byte webType) {
+        dataWatcher.updateObject(24, webType);
+    }
+
+    public byte getType() {
+        return dataWatcher.getWatchableObjectByte(24);
+    }
 }

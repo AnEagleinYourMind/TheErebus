@@ -1,27 +1,26 @@
 package erebus.item.bambucket;
 
-import erebus.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import erebus.ModItems;
+
 public class ItemBambucketMilk extends ItemBambucketDrinkable {
 
-	public ItemBambucketMilk() {
-		super("erebus:bambucketMilk");
-		setTextureName("erebus:bambucket_milk");
-		setUnlocalizedName("erebus.bambucketMilk");
-	}
+    public ItemBambucketMilk() {
+        super("erebus:bambucketMilk");
+        setTextureName("erebus:bambucket_milk");
+        setUnlocalizedName("erebus.bambucketMilk");
+    }
 
-	@Override
-	public ItemStack applyEffects(ItemStack stack, World world, EntityPlayer player) {
-		if (!player.capabilities.isCreativeMode)
-			stack.stackSize--;
+    @Override
+    public ItemStack applyEffects(ItemStack stack, World world, EntityPlayer player) {
+        if (!player.capabilities.isCreativeMode) stack.stackSize--;
 
-		if (!world.isRemote)
-			player.curePotionEffects(new ItemStack(Items.milk_bucket));
+        if (!world.isRemote) player.curePotionEffects(new ItemStack(Items.milk_bucket));
 
-		return stack.stackSize <= 0 ? new ItemStack(ModItems.bambucket) : stack;
-	}
+        return stack.stackSize <= 0 ? new ItemStack(ModItems.bambucket) : stack;
+    }
 }

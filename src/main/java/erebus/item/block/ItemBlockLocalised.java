@@ -6,12 +6,12 @@ import net.minecraft.item.ItemStack;
 
 public class ItemBlockLocalised extends ItemCloth {
 
-	public ItemBlockLocalised(Block block) {
-		super(block);
-	}
+    public ItemBlockLocalised(Block block) {
+        super(block);
+    }
 
-	@Override
-	public String getItemStackDisplayName(ItemStack stack) {
-		return field_150939_a.getLocalizedName();
-	}
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        return field_150939_a.getLocalizedName();
+    }
 }

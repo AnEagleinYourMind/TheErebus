@@ -14,19 +14,19 @@ import erebus.client.model.entity.ModelHoneyPotAnt;
 @SideOnly(Side.CLIENT)
 public class RenderHoneyPotAnt extends RenderLiving {
 
-	private static ResourceLocation TEXTURE = new ResourceLocation("erebus:textures/entity/honeyPotAnt.png");
+    private static ResourceLocation TEXTURE = new ResourceLocation("erebus:textures/entity/honeyPotAnt.png");
 
-	public RenderHoneyPotAnt() {
-		super(new ModelHoneyPotAnt(), 0.5F);
-	}
+    public RenderHoneyPotAnt() {
+        super(new ModelHoneyPotAnt(), 0.5F);
+    }
 
-	@Override
-	protected void preRenderCallback(EntityLivingBase entityliving, float partialTickTime) {
-		GL11.glScalef(0.5F, 0.5F, 0.5F);
-	}
+    @Override
+    protected void preRenderCallback(EntityLivingBase entityliving, float partialTickTime) {
+        GL11.glScalef(0.5F, 0.5F, 0.5F);
+    }
 
-	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
-		return TEXTURE;
-	}
+    @Override
+    protected ResourceLocation getEntityTexture(Entity entity) {
+        return TEXTURE;
+    }
 }

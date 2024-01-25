@@ -157,7 +157,6 @@ tile.erebus.flower_planted_white.name=White Flower
 
 # Fluid Blocks
 tile.erebus.honeyBlock.name=Honey
-tile.erebus.formicAcid.name=Formic Acid
 
 # Rest (someone should organise it at some point)
 tile.erebus.portal.name=Erebus Portal
@@ -212,7 +211,7 @@ tile.erebus.algae.name=Swamp Algae
 tile.erebus.jadeBerryBush.name=Jadeberry Bush
 tile.erebus.heartBerryBush.name=Heartberry Bush
 tile.erebus.swampBerryBush.name=Swampberry Bush
-tile.erebus.pricklyPair.name=Prickly Pair Cactus
+tile.erebus.pricklyPair.name=Prickly Pear Cactus
 
 tile.erebus.umbercobbleStairs0.name=Umberstone Stairs
 tile.erebus.umbercobbleStairs1.name=Umbercobble Stairs
@@ -462,8 +461,8 @@ item.erebus.food_titan_chop_cooked.name=Cooked Titan Chop
 item.erebus.food_swampberries.name=Swampberries
 item.erebus.food_cabbage.name=Cabbage
 item.erebus.food_titan_stew_cooked.name=Cooked Titan Stew
-item.erebus.food_prickly_pair_raw.name=Raw Prickly Pair
-item.erebus.food_prickly_pair_cooked.name=Cooked Prickly Pair
+item.erebus.food_prickly_pair_raw.name=Raw Prickly Pear
+item.erebus.food_prickly_pair_cooked.name=Cooked Prickly Pear
 
 # Rest
 item.erebus.wand_of_preservation.name=Wand of Preservation
@@ -597,11 +596,9 @@ item.erebus.bambucketHoney.name=Honey Bambucket
 item.erebus.bambucketAntiVenom.name=Anti-Venom Bambucket
 item.erebus.bambucketBeetleJuice.name=Beetle Juice Bambucket
 item.erebus.bambucketMilk.name=Milk Bambucket
-item.erebus.bambucketFormicAcid.name=Formic Acid Bambucket (Unused WIP)
 item.erebus.bucketBeetleJuice.name=Beetle Juice Bucket
 item.erebus.bucketAntiVenom.name=Anti-Venom Bucket
 item.erebus.bottleAntiVenom.name=Anti-Venom Bottle
-item.erebus.bucketFormicAcid.name=Formic Acid Bucket (Unused WIP)
 
 item.erebus.waspSword.name=Wasp Sword
 item.erebus.sprayCan.name=Insect Repellent
@@ -722,7 +719,6 @@ fluid.honey=Honey
 fluid.beetleJuice=Beetle Juice
 fluid.antiVenom=Anti-Venom
 fluid.milk=Milk
-fluid.formicAcid=Formic Acid (Unused WIP)
 
 #################
 # Creative Tabs #
@@ -731,7 +727,6 @@ fluid.formicAcid=Formic Acid (Unused WIP)
 itemGroup.erebus.block=Erebus Blocks
 itemGroup.erebus.item=Erebus Items
 itemGroup.erebus.gear=Erebus Gear
-itemGroup.erebus.special=Erebus Specials
 itemGroup.erebus.plants=Erebus Plants
 
 ################

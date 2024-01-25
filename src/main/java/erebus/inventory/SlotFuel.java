@@ -7,12 +7,12 @@ import net.minecraft.tileentity.TileEntityFurnace;
 
 public class SlotFuel extends Slot {
 
-	public SlotFuel(IInventory tile, int slotIndex, int x, int y) {
-		super(tile, slotIndex, x, y);
-	}
+    public SlotFuel(IInventory tile, int slotIndex, int x, int y) {
+        super(tile, slotIndex, x, y);
+    }
 
-	@Override
-	public boolean isItemValid(ItemStack is) {
-		return TileEntityFurnace.isItemFuel(is);
-	}
+    @Override
+    public boolean isItemValid(ItemStack is) {
+        return TileEntityFurnace.isItemFuel(is);
+    }
 }

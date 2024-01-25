@@ -692,7 +692,6 @@ fluid.antiVenom=Anti-Venom
 itemGroup.erebus.block=Erebus|方块
 itemGroup.erebus.item=Erebus|物品
 itemGroup.erebus.gear=Erebus|装备
-itemGroup.erebus.special=Erebus|特殊
 itemGroup.erebus.plants=Erebus|植物
 
 ################

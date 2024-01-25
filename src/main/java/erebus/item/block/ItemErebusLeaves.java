@@ -7,17 +7,17 @@ import net.minecraft.item.ItemStack;
 
 public class ItemErebusLeaves extends ItemLeaves {
 
-	public ItemErebusLeaves(Block block) {
-		super((BlockLeaves) block);
-	}
+    public ItemErebusLeaves(Block block) {
+        super((BlockLeaves) block);
+    }
 
-	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return field_150939_a.getUnlocalizedName();
-	}
+    @Override
+    public String getUnlocalizedName(ItemStack stack) {
+        return field_150939_a.getUnlocalizedName();
+    }
 
-	@Override
-	public String getItemStackDisplayName(ItemStack stack) {
-		return field_150939_a.getLocalizedName();
-	}
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        return field_150939_a.getLocalizedName();
+    }
 }

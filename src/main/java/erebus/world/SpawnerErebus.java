@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.DimensionManager;
+
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent;
@@ -29,248 +30,238 @@ import erebus.world.loot.IWeightProvider;
 import gnu.trove.map.hash.TObjectIntHashMap;
 
 public final class SpawnerErebus {
-	public static final SpawnerErebus INSTANCE = new SpawnerErebus();
-	public static final int MAX_MOBS_PER_WORLD = 300;
 
-	public static void onChunkPopulate(World world, Random rand, BiomeBaseErebus biome, int x, int z) {
-		if (!world.isRemote && world.getGameRules().getGameRuleBooleanValue("doMobSpawning"))
-			INSTANCE.runPopulationSpawning((WorldServer) world, rand, biome, x, z);
-	}
+    public static final SpawnerErebus INSTANCE = new SpawnerErebus();
+    public static final int MAX_MOBS_PER_WORLD = 300;
 
-	@SubscribeEvent
-	public void onServerTick(ServerTickEvent e) {
-		if (e.phase != Phase.START)
-			return;
+    public static void onChunkPopulate(World world, Random rand, BiomeBaseErebus biome, int x, int z) {
+        if (!world.isRemote && world.getGameRules()
+            .getGameRuleBooleanValue("doMobSpawning"))
+            INSTANCE.runPopulationSpawning((WorldServer) world, rand, biome, x, z);
+    }
 
-		//TimeMeasurement.start("whatever");
-		WorldServer erebusWorld = DimensionManager.getWorld(ConfigHandler.INSTANCE.erebusDimensionID);
-		if(erebusWorld.playerEntities.isEmpty())
-			return;
-		if (erebusWorld != null && erebusWorld.getGameRules().getGameRuleBooleanValue("doMobSpawning"))
-			runGradualSpawning(erebusWorld);
-		//TimeMeasurement.finish("whatever");
-	}
+    @SubscribeEvent
+    public void onServerTick(ServerTickEvent e) {
+        if (e.phase != Phase.START) return;
 
-	private boolean canSpawnHostiles;
-	private boolean canSpawnAnimals;
-	private Map<ChunkCoordIntPair, Boolean> spawnChunks = new HashMap<ChunkCoordIntPair, Boolean>(64);
+        // TimeMeasurement.start("whatever");
+        WorldServer erebusWorld = DimensionManager.getWorld(ConfigHandler.INSTANCE.erebusDimensionID);
+        if (erebusWorld.playerEntities.isEmpty()) return;
+        if (erebusWorld != null && erebusWorld.getGameRules()
+            .getGameRuleBooleanValue("doMobSpawning")) runGradualSpawning(erebusWorld);
+        // TimeMeasurement.finish("whatever");
+    }
 
-	private void prepare(WorldServer world) {
-		WorldProviderErebus provider = (WorldProviderErebus) world.provider;
-		canSpawnHostiles = provider.getCanSpawnHostiles();
-		canSpawnAnimals = provider.getCanSpawnAnimals();
-	}
+    private boolean canSpawnHostiles;
+    private boolean canSpawnAnimals;
+    private Map<ChunkCoordIntPair, Boolean> spawnChunks = new HashMap<ChunkCoordIntPair, Boolean>(64);
 
-	@SuppressWarnings("unchecked")
-	private void runGradualSpawning(WorldServer world) {
-		//System.out.println("Running Spawn code");
-		prepare(world);
+    private void prepare(WorldServer world) {
+        WorldProviderErebus provider = (WorldProviderErebus) world.provider;
+        canSpawnHostiles = provider.getCanSpawnHostiles();
+        canSpawnAnimals = provider.getCanSpawnAnimals();
+    }
 
-		if (!canSpawnHostiles && !canSpawnAnimals)
-			return;
+    @SuppressWarnings("unchecked")
+    private void runGradualSpawning(WorldServer world) {
+        // System.out.println("Running Spawn code");
+        prepare(world);
 
-		spawnChunks.clear();
+        if (!canSpawnHostiles && !canSpawnAnimals) return;
 
-		List<EntityPlayer> players = world.playerEntities;
+        spawnChunks.clear();
 
-		int chunkX, chunkZ, px, pz;
-		byte dist = 8;
+        List<EntityPlayer> players = world.playerEntities;
 
-		for (EntityPlayer player : players) {
-			chunkX = player.chunkCoordX;
-			chunkZ = player.chunkCoordZ;
+        int chunkX, chunkZ, px, pz;
+        byte dist = 8;
 
-			for (px = -dist; px <= dist; px++)
-				for (pz = -dist; pz <= dist; pz++) {
-					ChunkCoordIntPair coords = new ChunkCoordIntPair(chunkX + px, chunkZ + pz);
+        for (EntityPlayer player : players) {
+            chunkX = player.chunkCoordX;
+            chunkZ = player.chunkCoordZ;
 
-					if (px == -dist || px == dist || pz == -dist || pz == dist || Math.abs(px) <= 1 || Math.abs(pz) <= 1) {
-						if (!spawnChunks.containsKey(coords))
-							spawnChunks.put(coords, Boolean.valueOf(false));
-					} else
-						spawnChunks.put(coords, Boolean.valueOf(true));
-				}
-		}
+            for (px = -dist; px <= dist; px++) for (pz = -dist; pz <= dist; pz++) {
+                ChunkCoordIntPair coords = new ChunkCoordIntPair(chunkX + px, chunkZ + pz);
 
-		if (spawnChunks.isEmpty())
-			return;
+                if (px == -dist || px == dist || pz == -dist || pz == dist || Math.abs(px) <= 1 || Math.abs(pz) <= 1) {
+                    if (!spawnChunks.containsKey(coords)) spawnChunks.put(coords, Boolean.valueOf(false));
+                } else spawnChunks.put(coords, Boolean.valueOf(true));
+            }
+        }
 
-		TObjectIntHashMap<Class<? extends Entity>> entityCount = new TObjectIntHashMap<Class<? extends Entity>>();
+        if (spawnChunks.isEmpty()) return;
 
-		for (Object entity : world.loadedEntityList)
-			if (entity instanceof EntityLiving)
-				entityCount.adjustOrPutValue(((Entity) entity).getClass(), 1, 1);
+        TObjectIntHashMap<Class<? extends Entity>> entityCount = new TObjectIntHashMap<Class<? extends Entity>>();
 
-		int totalAmount = 0;
-		for (int amt : entityCount.values())
-			totalAmount += amt;
+        for (Object entity : world.loadedEntityList)
+            if (entity instanceof EntityLiving) entityCount.adjustOrPutValue(((Entity) entity).getClass(), 1, 1);
 
-		if (totalAmount >= Math.min(spawnChunks.size() >> 1, MAX_MOBS_PER_WORLD) / (world.difficultySetting == EnumDifficulty.PEACEFUL ? 2 : 1))
-			return;
+        int totalAmount = 0;
+        for (int amt : entityCount.values()) totalAmount += amt;
 
-		List<ChunkCoordIntPair> chunksToTest = new ArrayList<ChunkCoordIntPair>();
+        if (totalAmount >= Math.min(spawnChunks.size() >> 1, MAX_MOBS_PER_WORLD)
+            / (world.difficultySetting == EnumDifficulty.PEACEFUL ? 2 : 1)) return;
 
-		for (Entry<ChunkCoordIntPair, Boolean> entry : spawnChunks.entrySet())
-			if (entry.getValue())
-				chunksToTest.add(entry.getKey());
+        List<ChunkCoordIntPair> chunksToTest = new ArrayList<ChunkCoordIntPair>();
 
-		Random rand = world.rand;
-		int x, y, z, spawned, spawnGroup, attempts, posAttempts, maxPosAttempts, testedChunks = 3 + rand.nextInt(1 + 2 * world.difficultySetting.getDifficultyId());
-		float fx, fy, fz, yaw = 0F;
-		boolean continueSpawning, coordsFinal;
+        for (Entry<ChunkCoordIntPair, Boolean> entry : spawnChunks.entrySet())
+            if (entry.getValue()) chunksToTest.add(entry.getKey());
 
-		Collections.shuffle(chunksToTest, rand);
+        Random rand = world.rand;
+        int x, y, z, spawned, spawnGroup, attempts, posAttempts, maxPosAttempts,
+            testedChunks = 3 + rand.nextInt(1 + 2 * world.difficultySetting.getDifficultyId());
+        float fx, fy, fz, yaw = 0F;
+        boolean continueSpawning, coordsFinal;
 
-		for (ChunkCoordIntPair coords : chunksToTest) {
-			spawned = attempts = 0;
+        Collections.shuffle(chunksToTest, rand);
 
-			while (attempts < 4 && spawned < 2) {
-				x = coords.chunkXPos * 16 + rand.nextInt(16);
-				z = coords.chunkZPos * 16 + rand.nextInt(16);
-				y = 10 + rand.nextInt(100);
+        for (ChunkCoordIntPair coords : chunksToTest) {
+            spawned = attempts = 0;
 
-				BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
-				if (!(biome instanceof BiomeBaseErebus))
-					break;
+            while (attempts < 4 && spawned < 2) {
+                x = coords.chunkXPos * 16 + rand.nextInt(16);
+                z = coords.chunkZPos * 16 + rand.nextInt(16);
+                y = 10 + rand.nextInt(100);
 
-				SpawnEntry entry = ((BiomeBaseErebus) biome).getRandomSpawnGradual(rand);
-				if (entry == null)
-					break;
+                BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
+                if (!(biome instanceof BiomeBaseErebus)) break;
 
-				++attempts;
+                SpawnEntry entry = ((BiomeBaseErebus) biome).getRandomSpawnGradual(rand);
+                if (entry == null) break;
 
-				if (entry.isHostile && !canSpawnHostiles || !entry.isHostile && !canSpawnAnimals)
-					continue;
-				if (rand.nextFloat() > biome.getSpawningChance() || entry.worldLimit != -1 && entityCount.get(entry.mobClass) >= entry.worldLimit)
-					continue;
+                ++attempts;
 
-				EntityLiving entity = null;
+                if (entry.isHostile && !canSpawnHostiles || !entry.isHostile && !canSpawnAnimals) continue;
+                if (rand.nextFloat() > biome.getSpawningChance()
+                    || entry.worldLimit != -1 && entityCount.get(entry.mobClass) >= entry.worldLimit) continue;
 
-				spawnGroup = entry.minGroupSize + rand.nextInt(entry.maxGroupSize - entry.minGroupSize + 1);
-				continueSpawning = true;
-				coordsFinal = false;
-				maxPosAttempts = 20 + spawnGroup * 2;
+                EntityLiving entity = null;
 
-				while (continueSpawning) {
-					for (posAttempts = 0; posAttempts < maxPosAttempts; posAttempts++) {
-						fx = x + rand.nextInt(12) - 6 + 0.5F;
-						fy = y + rand.nextInt(2) - 1;
-						fz = z + rand.nextInt(12) - 6 + 0.5F;
+                spawnGroup = entry.minGroupSize + rand.nextInt(entry.maxGroupSize - entry.minGroupSize + 1);
+                continueSpawning = true;
+                coordsFinal = false;
+                maxPosAttempts = 20 + spawnGroup * 2;
 
-						if ((entry.blockBelow == null && world.getBlock((int) fx, (int) fy - 1, (int) fz).isNormalCube() || world.getBlock((int) fx, (int) fy - 1, (int) fz) == entry.blockBelow) && world.getClosestPlayer(fx, fy, fz, 24D) == null) {
-							if (!coordsFinal) {
-								coordsFinal = true;
-								posAttempts = 10;
-							}
+                while (continueSpawning) {
+                    for (posAttempts = 0; posAttempts < maxPosAttempts; posAttempts++) {
+                        fx = x + rand.nextInt(12) - 6 + 0.5F;
+                        fy = y + rand.nextInt(2) - 1;
+                        fz = z + rand.nextInt(12) - 6 + 0.5F;
 
-							if (entity == null) {
-								entity = entry.createEntity(world);
-								yaw = rand.nextFloat() * 360F;
-							}
+                        if ((entry.blockBelow == null && world.getBlock((int) fx, (int) fy - 1, (int) fz)
+                            .isNormalCube() || world.getBlock((int) fx, (int) fy - 1, (int) fz) == entry.blockBelow)
+                            && world.getClosestPlayer(fx, fy, fz, 24D) == null) {
+                            if (!coordsFinal) {
+                                coordsFinal = true;
+                                posAttempts = 10;
+                            }
 
-							if (entity == null) {
-								continueSpawning = false;
-								--spawned;
-								break;
-							}
+                            if (entity == null) {
+                                entity = entry.createEntity(world);
+                                yaw = rand.nextFloat() * 360F;
+                            }
 
-							entity.setLocationAndAngles(fx, fy, fz, yaw, 0F);
+                            if (entity == null) {
+                                continueSpawning = false;
+                                --spawned;
+                                break;
+                            }
 
-							if (entity.getCanSpawnHere()) {
-								world.spawnEntityInWorld(entity);
-								entity = null;
+                            entity.setLocationAndAngles(fx, fy, fz, yaw, 0F);
 
-								if (--spawnGroup <= 0)
-									continueSpawning = false;
-								break;
-							}
-						}
+                            if (entity.getCanSpawnHere()) {
+                                world.spawnEntityInWorld(entity);
+                                entity = null;
 
-						if (!coordsFinal) {
-							x = coords.chunkXPos * 16 + rand.nextInt(16);
-							z = coords.chunkZPos * 16 + rand.nextInt(16);
-							y = 20 + rand.nextInt(80);
-						}
+                                if (--spawnGroup <= 0) continueSpawning = false;
+                                break;
+                            }
+                        }
 
-						if (posAttempts == maxPosAttempts - 1)
-							continueSpawning = false;
-					}
+                        if (!coordsFinal) {
+                            x = coords.chunkXPos * 16 + rand.nextInt(16);
+                            z = coords.chunkZPos * 16 + rand.nextInt(16);
+                            y = 20 + rand.nextInt(80);
+                        }
 
-					++spawned;
-				}
-			}
+                        if (posAttempts == maxPosAttempts - 1) continueSpawning = false;
+                    }
 
-			if (--testedChunks <= 0)
-				break;
-		}
-	}
+                    ++spawned;
+                }
+            }
 
-	private void runPopulationSpawning(WorldServer world, Random rand, BiomeBaseErebus biome, int x, int z) {
-		prepare(world);
-		// TODO maybe I'll finish this one sometime...
-	}
+            if (--testedChunks <= 0) break;
+        }
+    }
 
-	private SpawnerErebus() {
-	}
+    private void runPopulationSpawning(WorldServer world, Random rand, BiomeBaseErebus biome, int x, int z) {
+        prepare(world);
+        // TODO maybe I'll finish this one sometime...
+    }
 
-	public static final class SpawnEntry implements IWeightProvider {
-		private final Constructor<? extends EntityLiving> mobConstructor;
-		protected final Class<? extends EntityLiving> mobClass;
-		protected final short weight;
-		protected final boolean isHostile;
-		protected byte minGroupSize = 1, maxGroupSize = 1;
-		protected int worldLimit = 10;
-		protected Block blockBelow = null;
+    private SpawnerErebus() {}
 
-		public SpawnEntry(Class<? extends EntityLiving> mobClass, int weight) {
-			this.mobClass = mobClass;
-			this.weight = (short) weight;
-			isHostile = IMob.class.isAssignableFrom(mobClass);
+    public static final class SpawnEntry implements IWeightProvider {
 
-			try {
-				mobConstructor = mobClass.getConstructor(World.class);
-			} catch (Exception e) {
-				throw new RuntimeException("Could not find constructor (World) of mob " + mobClass.getSimpleName(), e);
-			}
-		}
+        private final Constructor<? extends EntityLiving> mobConstructor;
+        protected final Class<? extends EntityLiving> mobClass;
+        protected final short weight;
+        protected final boolean isHostile;
+        protected byte minGroupSize = 1, maxGroupSize = 1;
+        protected int worldLimit = 10;
+        protected Block blockBelow = null;
 
-		/**
-		 * The spawner will attempt to spawn the mob in a group (it is not guaranteed to spawn minGroupSize mobs, but it will go for a number between that and maxGroupSize)
-		 */
-		public SpawnEntry setGroupSize(int minGroupSize, int maxGroupSize) {
-			this.minGroupSize = (byte) minGroupSize;
-			this.maxGroupSize = (byte) maxGroupSize;
-			return this;
-		}
+        public SpawnEntry(Class<? extends EntityLiving> mobClass, int weight) {
+            this.mobClass = mobClass;
+            this.weight = (short) weight;
+            isHostile = IMob.class.isAssignableFrom(mobClass);
 
-		/**
-		 * Maximum amount of mobs of this type per world
-		 */
-		public SpawnEntry setWorldLimit(int mobAmountLimit) {
-			worldLimit = mobAmountLimit;
-			return this;
-		}
+            try {
+                mobConstructor = mobClass.getConstructor(World.class);
+            } catch (Exception e) {
+                throw new RuntimeException("Could not find constructor (World) of mob " + mobClass.getSimpleName(), e);
+            }
+        }
 
-		/**
-		 * Defaults to null = any solid block
-		 */
-		public SpawnEntry setBlockBelow(Block block) {
-			blockBelow = block;
-			return this;
-		}
+        /**
+         * The spawner will attempt to spawn the mob in a group (it is not guaranteed to spawn minGroupSize mobs, but it
+         * will go for a number between that and maxGroupSize)
+         */
+        public SpawnEntry setGroupSize(int minGroupSize, int maxGroupSize) {
+            this.minGroupSize = (byte) minGroupSize;
+            this.maxGroupSize = (byte) maxGroupSize;
+            return this;
+        }
 
-		@Override
-		public short getWeight() {
-			return weight;
-		}
+        /**
+         * Maximum amount of mobs of this type per world
+         */
+        public SpawnEntry setWorldLimit(int mobAmountLimit) {
+            worldLimit = mobAmountLimit;
+            return this;
+        }
 
-		public EntityLiving createEntity(World world) {
-			try {
-				return mobConstructor.newInstance(world);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
-			}
-		}
-	}
+        /**
+         * Defaults to null = any solid block
+         */
+        public SpawnEntry setBlockBelow(Block block) {
+            blockBelow = block;
+            return this;
+        }
+
+        @Override
+        public short getWeight() {
+            return weight;
+        }
+
+        public EntityLiving createEntity(World world) {
+            try {
+                return mobConstructor.newInstance(world);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+    }
 }

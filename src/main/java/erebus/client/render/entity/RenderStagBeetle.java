@@ -14,20 +14,22 @@ import erebus.entity.EntityStagBeetle;
 
 @SideOnly(Side.CLIENT)
 public class RenderStagBeetle extends RenderLiving {
-	private static final ResourceLocation TEXTURE = new ResourceLocation("erebus:textures/entity/stagBeetle.png");
-	private static final ResourceLocation TEXTURE_TAME = new ResourceLocation("erebus:textures/entity/stagBeetleKit.png");
 
-	public RenderStagBeetle() {
-		super(new ModelStagBeetle(), 1F);
-	}
+    private static final ResourceLocation TEXTURE = new ResourceLocation("erebus:textures/entity/stagBeetle.png");
+    private static final ResourceLocation TEXTURE_TAME = new ResourceLocation(
+        "erebus:textures/entity/stagBeetleKit.png");
 
-	@Override
-	protected void preRenderCallback(EntityLivingBase entityliving, float partialTickTime) {
-		GL11.glScalef(1.2F, 1.2F, 1.2F);
-	}
+    public RenderStagBeetle() {
+        super(new ModelStagBeetle(), 1F);
+    }
 
-	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
-		return ((EntityStagBeetle) entity).getTameState() < 2 ? TEXTURE : TEXTURE_TAME;
-	}
+    @Override
+    protected void preRenderCallback(EntityLivingBase entityliving, float partialTickTime) {
+        GL11.glScalef(1.2F, 1.2F, 1.2F);
+    }
+
+    @Override
+    protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((EntityStagBeetle) entity).getTameState() < 2 ? TEXTURE : TEXTURE_TAME;
+    }
 }

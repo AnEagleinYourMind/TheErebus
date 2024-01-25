@@ -14,33 +14,33 @@ import erebus.entity.EntityMoth;
 
 @SideOnly(Side.CLIENT)
 public class RenderMoth extends RenderLiving {
-	private static final ResourceLocation resource1 = new ResourceLocation("erebus:textures/entity/moth1.png");
-	private static final ResourceLocation resource2 = new ResourceLocation("erebus:textures/entity/moth2.png");
-	private static final ResourceLocation resource3 = new ResourceLocation("erebus:textures/entity/moth3.png");
 
-	public RenderMoth() {
-		super(new ModelMoth(), 0.3F);
-	}
+    private static final ResourceLocation resource1 = new ResourceLocation("erebus:textures/entity/moth1.png");
+    private static final ResourceLocation resource2 = new ResourceLocation("erebus:textures/entity/moth2.png");
+    private static final ResourceLocation resource3 = new ResourceLocation("erebus:textures/entity/moth3.png");
 
-	@Override
-	protected void preRenderCallback(EntityLivingBase entityliving, float f) {
-		GL11.glScalef(0.5F, 0.5F, 0.5F);
-		EntityMoth entityMoth = (EntityMoth) entityliving;
-		if (entityMoth.getIsMothHanging())
-			GL11.glRotatef(180.0F, -1.0F, 0.0F, 0.0F);
-	}
+    public RenderMoth() {
+        super(new ModelMoth(), 0.3F);
+    }
 
-	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
-		EntityMoth entityMoth = (EntityMoth) entity;
-		switch (entityMoth.getSkin()) {
-			case 0:
-				return resource1;
-			case 1:
-				return resource2;
-			case 2:
-				return resource3;
-		}
-		return resource1;
-	}
+    @Override
+    protected void preRenderCallback(EntityLivingBase entityliving, float f) {
+        GL11.glScalef(0.5F, 0.5F, 0.5F);
+        EntityMoth entityMoth = (EntityMoth) entityliving;
+        if (entityMoth.getIsMothHanging()) GL11.glRotatef(180.0F, -1.0F, 0.0F, 0.0F);
+    }
+
+    @Override
+    protected ResourceLocation getEntityTexture(Entity entity) {
+        EntityMoth entityMoth = (EntityMoth) entity;
+        switch (entityMoth.getSkin()) {
+            case 0:
+                return resource1;
+            case 1:
+                return resource2;
+            case 2:
+                return resource3;
+        }
+        return resource1;
+    }
 }

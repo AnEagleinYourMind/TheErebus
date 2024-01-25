@@ -15,20 +15,21 @@ import erebus.entity.EntityCrushroom;
 
 @SideOnly(Side.CLIENT)
 public class RenderCrushroom extends RenderLiving {
-	private static final ResourceLocation texture = new ResourceLocation("erebus:textures/entity/crushroom.png");
 
-	public RenderCrushroom() {
-		super(new ModelCrushroom(), 1.5F);
-	}
+    private static final ResourceLocation texture = new ResourceLocation("erebus:textures/entity/crushroom.png");
 
-	@Override
-	protected void preRenderCallback(EntityLivingBase entity, float partialTickTime) {
-		BossStatus.setBossStatus((EntityCrushroom) entity, false);
-		GL11.glScalef(2F, 2F, 2F);
-	}
+    public RenderCrushroom() {
+        super(new ModelCrushroom(), 1.5F);
+    }
 
-	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
-		return texture;
-	}
+    @Override
+    protected void preRenderCallback(EntityLivingBase entity, float partialTickTime) {
+        BossStatus.setBossStatus((EntityCrushroom) entity, false);
+        GL11.glScalef(2F, 2F, 2F);
+    }
+
+    @Override
+    protected ResourceLocation getEntityTexture(Entity entity) {
+        return texture;
+    }
 }

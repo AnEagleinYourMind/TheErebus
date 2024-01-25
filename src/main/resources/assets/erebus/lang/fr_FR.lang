@@ -460,7 +460,6 @@ fluid.antiVenom=Anti-Venom
 itemGroup.erebus.block=Erebus Blocks
 itemGroup.erebus.item=Erebus Items
 itemGroup.erebus.gear=Erebus Gear
-itemGroup.erebus.special=Erebus Specials
 itemGroup.erebus.plants=Erebus Plants
 
 # Achievements

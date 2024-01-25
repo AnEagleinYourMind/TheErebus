@@ -157,7 +157,6 @@ tile.erebus.flower_planted_white.name=Белый цветок
 
 # Fluid Blocks
 tile.erebus.honeyBlock.name=Мёд
-tile.erebus.formicAcid.name=Муравьиная кислота
 
 # Rest (someone should organise it at some point)
 tile.erebus.portal.name=Портал в «Эреб»
@@ -597,11 +596,9 @@ item.erebus.bambucketHoney.name=Бамбуковое ведро мёда
 item.erebus.bambucketAntiVenom.name=Бамбуковое ведро противоядия
 item.erebus.bambucketBeetleJuice.name=Бамбуковое ведро сока из личинок
 item.erebus.bambucketMilk.name=Бамбуковое ведро молока
-item.erebus.bambucketFormicAcid.name=Бамбуковое ведро муравьиной кислоты (НЕ ИСПОЛЬЗУЕТСЯ)
 item.erebus.bucketBeetleJuice.name=Ведро сока из личинок
 item.erebus.bucketAntiVenom.name=Ведро противоядия
 item.erebus.bottleAntiVenom.name=Пузырёк противоядия
-item.erebus.bucketFormicAcid.name=Ведро муравьиной кислоты (НЕ ИСПОЛЬЗУЕТСЯ)
 
 item.erebus.waspSword.name=Осиный меч
 item.erebus.sprayCan.name=Средство от насекомых
@@ -730,7 +727,6 @@ fluid.antiVenom=Противоядие
 itemGroup.erebus.block=Erebus: Блоки
 itemGroup.erebus.item=Erebus: Предметы
 itemGroup.erebus.gear=Erebus: Снаряжение
-itemGroup.erebus.special=Erebus: Специальное
 itemGroup.erebus.plants=Erebus: Растения
 
 ################
