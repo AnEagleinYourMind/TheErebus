@@ -1,6 +1,5 @@
 package erebus.integration.nei;
 
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,8 +18,6 @@ import org.lwjgl.opengl.GL11;
 
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
-import codechicken.nei.guihook.GuiContainerManager;
-import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import erebus.ModItems;
 import erebus.client.gui.GuiSmoothieMaker;
@@ -149,6 +146,7 @@ public class SmoothieMakerNEIHandler extends TemplateRecipeHandler {
                 arecipes.add(new CachedSmoothieMakerRecipe(recipe));
     }
 
+    /* FIXME this is broken by gtnh version of NEI
     @Override
     public final List<String> handleTooltip(GuiRecipe guiRecipe, List<String> currenttip, int recipe) {
         super.handleTooltip(guiRecipe, currenttip, recipe);
@@ -168,7 +166,7 @@ public class SmoothieMakerNEIHandler extends TemplateRecipeHandler {
         }
         return currenttip;
     }
-
+    */
     private class CachedSmoothieMakerRecipe extends CachedRecipe {
 
         private final List<PositionedStack> inputs;
@@ -185,8 +183,8 @@ public class SmoothieMakerNEIHandler extends TemplateRecipeHandler {
             List<?> input = Arrays.asList(recipe.getInputs());
             Collections.shuffle(input);
 
-            inputs = new ArrayList<PositionedStack>();
-            if (input.size() >= 1 && input.get(0) != null)
+            inputs = new ArrayList<>();
+            if (!input.isEmpty() && input.get(0) != null)
                 inputs.add(new PositionedStack(input.get(0), x + 26, y - 10));
             if (input.size() >= 2 && input.get(1) != null)
                 inputs.add(new PositionedStack(input.get(1), x + 47, y + 11));

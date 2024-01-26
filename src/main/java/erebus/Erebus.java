@@ -71,7 +71,6 @@ public class Erebus {
     // TODO: fix ugly fog colors
     // TODO: add config for wand of animation or just whitelist useless blocks
     // TODO: make BlockSlabPlanks and BlockSlabStone extend BlockSlab instead of CUSTOM IMPLEMENTATION??
-    // TODO: re-implement EntityPortalErebusFX
 
     @SidedProxy(clientSide = Reference.SP_CLIENT, serverSide = Reference.SP_SERVER)
     public static CommonProxy proxy;
@@ -119,7 +118,7 @@ public class Erebus {
     public void init(FMLInitializationEvent event) {
         // Remove all the door recipes.
         // This is needed otherwise our doors will not be craftable due to the recipe ordering
-        List<IRecipe> doorRecipes = new ArrayList<IRecipe>();
+        List<IRecipe> doorRecipes = new ArrayList<>();
         for (IRecipe recipe : (List<IRecipe>) CraftingManager.getInstance()
             .getRecipeList()) if (recipe != null) {
                 ItemStack stack = recipe.getRecipeOutput();
