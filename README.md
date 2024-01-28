@@ -1,3 +1,6 @@
+# See this from the original repo
+https://github.com/vadis365/TheErebus/issues/332#issuecomment-140392280
+
 # The Erebus
 
 Don't read me. I'm shy.
